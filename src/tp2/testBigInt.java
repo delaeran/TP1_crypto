@@ -20,7 +20,7 @@ public class testBigInt {
 			p = new BigInteger(8+(size/2),new Random()); 
 			p = p.nextProbablePrime();
 			}
-		System.out.println(p);
+		//System.out.println(p);
 		BigInteger q = new BigInteger(8+(size/2),new Random());
 		q= q.nextProbablePrime();
 		while (q.bitLength()<(size/2))
@@ -29,28 +29,37 @@ public class testBigInt {
 			q = q.nextProbablePrime();
 			}
 
-		BigInteger n = p.multiply(q);
+		BigInteger n = p.multiply(q); 
+		BigInteger i= BigInteger.valueOf(1);
+		BigInteger b= BigInteger.valueOf(65537);
+		System.out.println(n);
 		System.out.println("taille n = "+n.bitLength());
-
+		BigInteger phi_n=p.subtract(i).multiply(q.subtract(i));
+		BigInteger pgcd_b_phi= b.gcd(phi_n);
+		System.out.println(phi_n);
+		System.out.println(pgcd_b_phi);
 		
-		// p,q premier (cachés)
+		BigInteger a=b.modInverse(phi_n);
+		System.out.println(a);
+		
+		// p,q premier (cachï¿½s)
 		// n = p x q  (public)
 		// fi(n) (p-1)(q-1)
 		//
-		// b = aléatoire entre 1 < b < fi(n)
+		// b = alï¿½atoire entre 1 < b < fi(n)
 		// choisir a tel que ab = 1( modulo fi(n))
 		//					a = b puissance -1 (modulo fi(n))
 		// pour que cela marche, il faut 
 		// que PGCD (b,fi(n))=1
 		
-		// créer fichier de clé nom.pub
-		// créer fichier de clé nom.priv
+		// crï¿½er fichier de clï¿½ nom.pub
+		// crï¿½er fichier de clï¿½ nom.priv
 	}
 	
 	public static void chiffre(String nomclepub)
 	{
-		// chiffre le message sur l'entrée standard pour le
-		// destinataire de de clé nom.pub
+		// chiffre le message sur l'entrï¿½e standard pour le
+		// destinataire de de clï¿½ nom.pub
 		// sortie du message sur la sortie standard
 	}
 	
