@@ -53,4 +53,21 @@ public class testBigInt {
 		// destinataire de de clé nom.pub
 		// sortie du message sur la sortie standard
 	}
+	
+	public static void dechiffre(String nomclepriv)
+	{
+		// déchiffre avec le fichier nom.priv
+		// sort le message sur la sortie standard.
+		
+	}
+	
+	public static void signe(String nom)
+	{
+		// signe un message et en sort la signature avec nom.priv
+	}
+
+	public static void verifie(String nom)
+	{
+		// févirie fichier signature avec nom.pub
+	}
 }
