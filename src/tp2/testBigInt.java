@@ -46,20 +46,20 @@ public class testBigInt {
 		// n = p x q  (public)
 		// fi(n) (p-1)(q-1)
 		//
-		// b = al�atoire entre 1 < b < fi(n)
+		// b = aleatoire entre 1 < b < fi(n)
 		// choisir a tel que ab = 1( modulo fi(n))
 		//					a = b puissance -1 (modulo fi(n))
 		// pour que cela marche, il faut 
 		// que PGCD (b,fi(n))=1
 		
-		// cr�er fichier de cl� nom.pub
-		// cr�er fichier de cl� nom.priv
+		// creer fichier de cle nom.pub
+		// creer fichier de cle nom.priv
 	}
 	
 	public static void chiffre(String nomclepub)
 	{
 		// chiffre le message sur l'entr�e standard pour le
-		// destinataire de de cl� nom.pub
+		// destinataire de de cle nom.pub
 		// sortie du message sur la sortie standard
 	}
 	
