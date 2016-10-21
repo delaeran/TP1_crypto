@@ -1,5 +1,13 @@
 package tp2;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -42,6 +50,33 @@ public class testBigInt {
 		BigInteger a=b.modInverse(phi_n);
 		System.out.println(a);
 		
+
+		String contentpriv = size + " " + n + " " + p + " " + q + " " + a + " " + b;
+		String contentpub = size + " " + n + " " + b;
+		
+		try {
+		
+			File fpriv = new File(nomcles+".priv");
+			FileWriter fwpriv = new FileWriter(fpriv.getAbsoluteFile());
+			BufferedWriter bwpriv = new BufferedWriter(fwpriv); 
+
+			bwpriv.write(contentpriv);
+			bwpriv.close();
+			
+			// .pub déjà pris par microsoft publisher
+			File fpub = new File(nomcles+".publ");
+			FileWriter fwpub = new FileWriter(fpub.getAbsoluteFile());
+			BufferedWriter bwpub = new BufferedWriter(fwpub);
+		
+			bwpub.write(contentpub);
+			bwpub.close();
+
+		
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// p,q premier (cachï¿½s)
 		// n = p x q  (public)
 		// fi(n) (p-1)(q-1)
