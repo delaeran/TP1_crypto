@@ -1,19 +1,11 @@
 package tp2;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class testBigInt {
@@ -31,7 +23,17 @@ public class testBigInt {
 			System.out.println(test[i]);
 			i++;
 		}
-		chiffre("rien");
+		String text1 = "TEST";
+		System.out.println("Plaintext: " + text1);
+	    BigInteger plaintext = new BigInteger(text1.getBytes());
+	    
+		BigInteger texte_chiffrer=chiffre("rien",plaintext);
+		System.out.println("cyphertext "+texte_chiffrer);
+		plaintext=dechiffre("rien",texte_chiffrer);
+		
+		String text2= new String(plaintext.toByteArray());
+		 System.out.println("Plaintext: " + text2);
+		
 	}
 	
 	
@@ -79,7 +81,7 @@ public class testBigInt {
 			bwpriv.write(contentpriv);
 			bwpriv.close();
 			
-			// .pub déjà pris par microsoft publisher
+			// .pub dï¿½jï¿½ pris par microsoft publisher
 			File fpub = new File(nomcles+".publ");
 			FileWriter fwpub = new FileWriter(fpub.getAbsoluteFile());
 			BufferedWriter bwpub = new BufferedWriter(fwpub);
@@ -109,10 +111,12 @@ public class testBigInt {
 	
 	
 	
-	public static void chiffre(String nomclepub)
+	public static BigInteger chiffre(String nomclepub,BigInteger message)
 	{
 		// obtention du n et du b du fichier .publ
 		File file = new File(nomclepub+".publ");
+		BigInteger n = null;
+		BigInteger b = null;
 		if(file.exists())
 		{
 			BufferedReader reader = null;
@@ -122,13 +126,17 @@ public class testBigInt {
 		    	String[] clepublique = text.split(" ");
 		    	BigInteger size = new BigInteger(clepublique[0]);
 		        BigInteger cle_n = new BigInteger(clepublique[1]);
-		        BigInteger cle_b = new BigInteger(clepublique[2]);		    	
+		        BigInteger cle_b = new BigInteger(clepublique[2]);
+		        n=cle_n;
+		        b=cle_b;
 			} catch (IOException e) {
 			    e.printStackTrace();
 			}
+			
 		}
-		
-		
+		 
+		//return(new BigInteger(message.getBytes())).modPow(b, n).toString();
+		return message.modPow(b, n);
 		// chiffre le message sur l'entrï¿½e standard pour le
 		// destinataire de de cle nom.pub
 		// sortie du message sur la sortie standard
@@ -155,13 +163,37 @@ public class testBigInt {
 	
 	
 	
-	public static void dechiffre(String nomclepriv)
+	public static BigInteger dechiffre(String nomclepriv,BigInteger message)
 	{
+	// obtention du n et du a du fichier .publ
+		File file = new File(nomclepriv+".priv");
+		BigInteger n = null;
+		BigInteger a = null;
+		if(file.exists())
+			{
+			BufferedReader reader = null;
+			try {
+			    reader = new BufferedReader(new FileReader(file));
+			    String text = reader.readLine();
+		    	String[] cleprive = text.split(" ");
+		    	BigInteger size = new BigInteger(cleprive[0]);
+		        BigInteger cle_n = new BigInteger(cleprive[1]);
+		        BigInteger cle_a = new BigInteger(cleprive[3]);
+		        n=cle_n;
+		        a=cle_a;
+				} 
+			catch (IOException e) {
+			    e.printStackTrace();
+				}
+				
+			}
+	
+		    //return new String((new BigInteger(message)).modPow(a, n).toByteArray());
+		    return message.modPow(a, n);
 		// clair = crypt^^a mod n
-		
-		// déchiffre avec le fichier nom.priv
-		// sort le message sur la sortie standard.
-		
+			
+			// dï¿½chiffre avec le fichier nom.priv
+			// sort le message sur la sortie standard.
 	}
 	
 	public static void signe(String nom)
@@ -171,6 +203,6 @@ public class testBigInt {
 
 	public static void verifie(String nom)
 	{
-		// févirie fichier signature avec nom.pub
+		// fï¿½virie fichier signature avec nom.pub
 	}
 }
